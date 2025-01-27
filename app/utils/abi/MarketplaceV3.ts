@@ -1531,4 +1531,4 @@ export const Abi = [
     stateMutability: "payable",
     type: "receive",
   },
-];
+] as const;

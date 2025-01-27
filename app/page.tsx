@@ -2,10 +2,11 @@
 import client from "@/lib/client";
 import { NFTGrid } from "@/components/NFTGrid";
 import { useListings } from "@/hooks/useListings";
-import { MARKETPLACE_SEPOLIA } from "./utils/contracts";
+import { marketplaceContract } from "./config";
+import { SellForm } from "@/components/SellSheet"
 
 export default function Home() {
-  const { listings, isLoading } = useListings(MARKETPLACE_SEPOLIA);
+  const { listings, isLoading } = useListings(marketplaceContract);
 
   if (isLoading) {
     return <div className="text-white">Loading...</div>;
@@ -13,6 +14,10 @@ export default function Home() {
 
   return (
     <div className="p-8 max-w-7xl mx-auto backdrop-blur-md min-h-screen">
+      <div className="mb-8">
+        <SellForm />
+      </div>
+      
       {listings && listings.length > 0 ? (
         <NFTGrid listings={listings} client={client} />
       ) : (

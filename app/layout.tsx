@@ -14,7 +14,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <ThirdwebProvider>
+    <html lang="en">
+      <body>
+        <ThirdwebProvider>
           <main className="flex relative h-full w-full flex-col items-center">
             <Navbar />
             <section className="mb-10 z-10 flex flex-1 w-full px-6 flex-col items-center">
@@ -30,7 +32,8 @@ export default function RootLayout({
             </section>
             <Footer />
           </main>
-      </ThirdwebProvider>
-
+        </ThirdwebProvider>
+      </body>
+    </html>
   );
 }

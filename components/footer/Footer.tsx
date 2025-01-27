@@ -1,4 +1,4 @@
-import { Discord, Github, Twitter } from "@/app/components/icons";
+import { Discord, Github, Twitter } from "@/components/icons";
 
 export default function Footer(): JSX.Element {
   return (
