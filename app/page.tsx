@@ -8,7 +8,6 @@ import { getAllValidListings } from "thirdweb/extensions/marketplace";
 
 export default function Home() {
   const { data: listings, isLoading } = useReadContract(getAllValidListings, { contract: marketplaceContract});
-
   return (
     <main className="flex flex-col min-h-screen w-full">
       <div className="flex-1 p-4 md:p-8 max-w-7xl mx-auto w-full">  

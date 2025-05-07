@@ -13,3 +13,9 @@ export interface NFTGridProps {
   listings: Listing[];
   client: ThirdwebClient; 
 }
+
+export type ListingFormData = {
+  nftAddress: string;
+  tokenId: string;
+  price: string;
+};
