@@ -64,7 +64,9 @@ export function NFTCard({ listing, client }: NFTCardProps) {
             <p className="font-medium text-lg text-white">
               {listing.currencyValuePerToken?.displayValue}
               <span className="text-gray-300 font-normal ml-1">
-                {listing.currencyValuePerToken?.symbol}
+                {listing.currencyValuePerToken?.tokenAddress === "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" 
+                  ? "RBTC" 
+                  : listing.currencyValuePerToken?.symbol}
               </span>
             </p>
           </div>
