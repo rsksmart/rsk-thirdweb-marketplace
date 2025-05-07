@@ -4,7 +4,7 @@ import { MediaRenderer, useActiveAccount, useSendTransaction, useWaitForReceipt 
 import { XMarkIcon, ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { NFTCardProps } from "@/types/marketplace";
 import { formatDate, getCurrencySymbol } from "@/lib/utils";
-import { cancelListing } from "thirdweb/extensions/marketplace";
+import { cancelListing, buyFromListing } from "thirdweb/extensions/marketplace";
 import { marketplaceContract } from "@/app/config";
 import { defineChain } from "thirdweb/chains";
 
@@ -31,12 +31,22 @@ export function NFTDetailSheet({ listing, client, isOpen, onClose }: NFTDetailSh
       return;
     }
 
- 
     try {
-      // Implementation for buying will go here
-      console.log("Buy NFT:", listing.id);
-      // After successful purchase
-      onClose();
+      // Create the transaction for buying the NFT
+      const transaction = buyFromListing({
+        contract: marketplaceContract,
+        listingId: listing.id,
+        quantity: BigInt(1),
+        recipient: activeAccount.address,
+      });
+
+      // Send the transaction
+      const result = await sendTransaction(transaction);
+      console.log("Transaction sent:", result);
+      
+      // Store the transaction hash
+      const txHash = result.transactionHash as `0x${string}`;
+      setTxHash(txHash);
     } catch (error) {
       console.error("Error buying NFT:", error);
     } 
