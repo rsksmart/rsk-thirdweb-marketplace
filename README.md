@@ -3,9 +3,91 @@
 
 <img src="rootstock-logo.png" alt="RSK Logo" style="width:100%; height: auto;" />
 
-# Runes Marketplace
+# Rootstock NFT Marketplace
 
-This project is an open-source proof of concept implementing a Runes Marketplace. The primary goal is to allow users to buy and sell Runes on the Rootstock (RSK) network.
+A professional NFT marketplace built on Rootstock using thirdweb.
+
+## Features
+
+- NFT listing grid with responsive layout
+- Loading skeletons for better UX
+- Detail view for NFTs with listing information
+- Buy and cancel functionality (not fully implemented yet)
+
+## Implementation Notes
+
+### NFT Detail View
+
+The NFT detail view is implemented using a modal/sheet component that appears when a user clicks on an NFT card. This component displays detailed information about the listing and provides buttons for buying or cancelling the listing.
+
+### Implementing Buy Functionality
+
+To implement the buy functionality, update the `handleBuy` function in `components/NFTDetailSheet.tsx`:
+
+```typescript
+import { buyListing } from "thirdweb/extensions/marketplace";
+
+// Inside NFTDetailSheet component
+const handleBuy = async () => {
+  setIsProcessing(true);
+  try {
+    // Replace with your actual implementation
+    const result = await buyListing({
+      contract: marketplaceContract,
+      listingId: listing.id,
+      buyFor: "YOUR_WALLET_ADDRESS", // or get from wallet connection
+      // Include additional parameters as needed
+    });
+    console.log("Purchase successful:", result);
+    // After successful purchase
+    onClose();
+  } catch (error) {
+    console.error("Error buying NFT:", error);
+    // Handle error appropriately
+  } finally {
+    setIsProcessing(false);
+  }
+};
+```
+
+### Implementing Cancel Functionality
+
+To implement the cancel functionality, update the `handleCancel` function in `components/NFTDetailSheet.tsx`:
+
+```typescript
+import { cancelListing } from "thirdweb/extensions/marketplace";
+
+// Inside NFTDetailSheet component
+const handleCancel = async () => {
+  setIsProcessing(true);
+  try {
+    // Replace with your actual implementation
+    const result = await cancelListing({
+      contract: marketplaceContract,
+      listingId: listing.id,
+      // Include additional parameters as needed
+    });
+    console.log("Cancellation successful:", result);
+    // After successful cancellation
+    onClose();
+  } catch (error) {
+    console.error("Error cancelling listing:", error);
+    // Handle error appropriately
+  } finally {
+    setIsProcessing(false);
+  }
+};
+```
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+```
 
 ## Table of Contents
 

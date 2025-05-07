@@ -1,3 +1,3 @@
-import { MARKETPLACE_SEPOLIA } from "./utils/contracts";
+import { marketplaceContract } from "./utils/contracts";
 
-export const marketplaceContract = MARKETPLACE_SEPOLIA
+export { marketplaceContract };

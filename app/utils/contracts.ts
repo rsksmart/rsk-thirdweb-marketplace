@@ -1,4 +1,4 @@
-import { useListings } from "@/hooks/useListings";
+
 import client from "@/lib/client";
 import { getContract } from "thirdweb";
 import { sepolia } from "thirdweb/chains";
@@ -14,14 +14,9 @@ export const rootstockTestnet = defineChain({
     },
   });
 
-export const MARKETPLACE = getContract({
-	address: '0x3830e3b28e6927658fFF2F34c12BF91f4Ca16103',
-	client,
-	chain: rootstockTestnet,
-});
-
-export const MARKETPLACE_SEPOLIA  = getContract({
-    client: client,
-    address: '0x36Df35ba24Ec05413c6F88aD0320dc60d299Ccaf',
-    chain: sepolia
+  export const marketplaceContract = getContract({
+    client,
+    address: "0xe89161615fCc987aFd21cF73FB397c57831bbD5b",
+    chain: defineChain(31),
   });
+
