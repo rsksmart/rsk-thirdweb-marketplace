@@ -6,12 +6,12 @@ export type Listing = DirectListing;
 
 export interface NFTCardProps {
   listing: Listing;
-  client: ThirdwebClient; 
+  client: ThirdwebClient;
 }
 
 export interface NFTGridProps {
   listings: Listing[];
-  client: ThirdwebClient; 
+  client: ThirdwebClient;
 }
 
 export type ListingFormData = {

@@ -7,7 +7,6 @@ import { TooltipProvider } from "@radix-ui/react-tooltip";
 import Footer from "@/components/footer/Footer";
 import Navbar from "@/components/navbar/Navbar";
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -22,9 +21,7 @@ export default function RootLayout({
             <section className="mb-10 z-10 flex flex-1 w-full px-6 flex-col items-center">
               <div className="flex flex-row w-full justify-center items-center">
                 <h1 className="text-4xl md:text-5xl font-bold mt-6 mb-10 text-center text-black">
-                  <span className="bg-title max-w-max px-1.5">
-                    Marketplace
-                  </span>
+                  <span className="bg-title max-w-max px-1.5">Marketplace</span>
                 </h1>
               </div>
               <TooltipProvider>{children}</TooltipProvider>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { MediaRenderer } from "thirdweb/react";
-import { NFTCardProps, type Listing } from "@/types/marketplace"; 
+import { NFTCardProps, type Listing } from "@/types/marketplace";
 import { NFTDetailSheet } from "./NFTDetailSheet";
 
 export function NFTCard({ listing, client }: NFTCardProps) {
@@ -8,7 +8,7 @@ export function NFTCard({ listing, client }: NFTCardProps) {
 
   return (
     <>
-      <div 
+      <div
         className="bg-gray-50/10 backdrop-blur-md border border-white/10 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden h-full flex flex-col cursor-pointer"
         onClick={() => setIsDetailOpen(true)}
       >
@@ -35,21 +35,21 @@ export function NFTCard({ listing, client }: NFTCardProps) {
             <div className="flex items-center gap-2 shrink-0">
               <span
                 className={`block w-3 h-3 rounded-full ${
-                  listing.status === 'ACTIVE'
-                    ? 'bg-green-500'
-                    : listing.status === 'CREATED'
-                    ? 'bg-amber-500'
-                    : 'bg-gray-500'
+                  listing.status === "ACTIVE"
+                    ? "bg-green-500"
+                    : listing.status === "CREATED"
+                      ? "bg-amber-500"
+                      : "bg-gray-500"
                 }`}
               ></span>
               <span
                 className={`px-2 py-1 rounded-full text-xs font-medium ${
                   listing.isReservedListing
-                    ? 'bg-indigo-500/20 text-indigo-200'
-                    : 'bg-emerald-500/20 text-emerald-200'
+                    ? "bg-indigo-500/20 text-indigo-200"
+                    : "bg-emerald-500/20 text-emerald-200"
                 }`}
               >
-                {listing.isReservedListing ? 'Reserved' : 'Public'}
+                {listing.isReservedListing ? "Reserved" : "Public"}
               </span>
             </div>
           </div>
@@ -64,8 +64,9 @@ export function NFTCard({ listing, client }: NFTCardProps) {
             <p className="font-medium text-lg text-white">
               {listing.currencyValuePerToken?.displayValue}
               <span className="text-gray-300 font-normal ml-1">
-                {listing.currencyValuePerToken?.tokenAddress === "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" 
-                  ? "RBTC" 
+                {listing.currencyValuePerToken?.tokenAddress ===
+                "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+                  ? "RBTC"
                   : listing.currencyValuePerToken?.symbol}
               </span>
             </p>
@@ -81,4 +82,4 @@ export function NFTCard({ listing, client }: NFTCardProps) {
       />
     </>
   );
-} 
+}

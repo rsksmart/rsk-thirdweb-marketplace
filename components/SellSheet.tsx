@@ -9,7 +9,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState, useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { useActiveAccount, useSendTransaction, useWaitForReceipt } from "thirdweb/react";
+import {
+  useActiveAccount,
+  useSendTransaction,
+  useWaitForReceipt,
+} from "thirdweb/react";
 import { createListing } from "thirdweb/extensions/marketplace";
 import { marketplaceContract } from "@/app/config";
 import { Address, Hex, getContract, type NFT } from "thirdweb";
@@ -39,12 +43,12 @@ export function SellForm({ onClose }: SellFormProps) {
   const [isValidContract, setIsValidContract] = useState(false);
   const [isLoadingNFTs, setIsLoadingNFTs] = useState(false);
   const [txHash, setTxHash] = useState<`0x${string}` | null>(null);
-  
+
   // Debug log
   useEffect(() => {
     console.log("SellForm mounted with onClose:", typeof onClose);
   }, [onClose]);
-  
+
   const {
     register,
     handleSubmit,
@@ -62,13 +66,13 @@ export function SellForm({ onClose }: SellFormProps) {
 
   // Move this before the useEffect that depends on it
   const nftAddress = watch("nftAddress");
-  
+
   const { data: receipt, isLoading: isWaitingForReceipt } = useWaitForReceipt({
     client,
     chain: defineChain(31),
     transactionHash: txHash as `0x${string}`,
   });
-  
+
   const {
     mutateAsync: sendTransaction,
     isPending,
@@ -176,13 +180,11 @@ export function SellForm({ onClose }: SellFormProps) {
 
       {txHash && (
         <div className="mt-4 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
-          <p className="text-sm font-medium text-amber-500">
-            Transaction sent
-          </p>
-          <a 
+          <p className="text-sm font-medium text-amber-500">Transaction sent</p>
+          <a
             href={`https://rootstock-testnet.blockscout.com/tx/${txHash}`}
             target="_blank"
-            rel="noopener noreferrer" 
+            rel="noopener noreferrer"
             className="text-xs text-amber-400 underline mt-1 block"
           >
             View on explorer
@@ -304,7 +306,9 @@ export function SellForm({ onClose }: SellFormProps) {
 
         <Button
           type="submit"
-          disabled={isPending || isWaitingForReceipt || !account || !isValidContract}
+          disabled={
+            isPending || isWaitingForReceipt || !account || !isValidContract
+          }
           className="w-full"
         >
           {!account
@@ -312,10 +316,12 @@ export function SellForm({ onClose }: SellFormProps) {
             : !isValidContract && nftAddress
               ? "Invalid Contract Address"
               : isPending || isWaitingForReceipt
-                ? isWaitingForReceipt ? "Confirming transaction..." : "Creating listing..."
+                ? isWaitingForReceipt
+                  ? "Confirming transaction..."
+                  : "Creating listing..."
                 : "Create Listing"}
         </Button>
-        
+
         {isError && !txHash && (
           <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
             <p className="text-sm text-red-500">
@@ -331,7 +337,7 @@ export function SellForm({ onClose }: SellFormProps) {
 export function SellSheet({ isOpen, onClose }: SellSheetProps) {
   // We don't want to show the trigger button when isOpen is controlled externally
   const showTrigger = false;
-  
+
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
       {showTrigger && (
