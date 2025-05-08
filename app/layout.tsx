@@ -18,14 +18,14 @@ export default function RootLayout({
         <ThirdwebProvider>
           <main className="flex relative h-full w-full flex-col items-center">
             <Navbar />
-            <section className="mb-10 z-10 flex flex-1 w-full px-6 flex-col items-center">
+            <section className="mb-10  flex flex-1 w-full px-6 flex-col items-center">
               <div className="flex flex-row w-full justify-center items-center">
                 <h1 className="text-4xl md:text-5xl font-bold mt-6 mb-10 text-center text-black">
                   <span className="bg-title max-w-max px-1.5">Marketplace</span>
                 </h1>
               </div>
               <TooltipProvider>{children}</TooltipProvider>
-              <ToastContainer />
+              <ToastContainer className="z-[100]" />
             </section>
             <Footer />
           </main>
