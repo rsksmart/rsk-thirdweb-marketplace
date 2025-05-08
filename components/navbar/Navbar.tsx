@@ -22,11 +22,11 @@ function Navbar() {
   const [isSellOpen, setSellOpen] = useState(false);
 
   return (
-    <nav className="w-full py-4 px-6 flex justify-between items-center">
-      <div className="flex items-center gap-8">
-        <img src={logo.src} alt="logo" className="h-8" />
+    <nav className="w-full py-4 px-4 md:px-6 flex justify-between items-center">
+      <div className="flex items-center gap-2 md:gap-6">
+        <img src={logo.src} alt="logo" className="h-5 md:h-8" />
         <button
-          className="px-4 py-2 text-white bg-black/30 backdrop-blur-md hover:bg-white/10 active:bg-white/20 focus:outline-none transition-colors text-sm font-medium"
+          className="md:px-4 px-2 py-2 text-white bg-black/30 backdrop-blur-md hover:bg-white/10 active:bg-white/20 focus:outline-none transition-colors text-sm font-medium"
           onClick={() => setSellOpen(true)}
         >
           Sell
