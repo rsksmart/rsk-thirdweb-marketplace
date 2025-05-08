@@ -7,7 +7,8 @@ import {
 } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import {
   useActiveAccount,
@@ -138,7 +139,7 @@ export function SellForm({ onClose }: SellFormProps) {
 
   const onSubmit = async () => {
     if (!account) {
-      alert("Please connect your wallet");
+      toast.error("Please connect your wallet", { position: "bottom-right" });
       return;
     }
 
@@ -155,16 +156,22 @@ export function SellForm({ onClose }: SellFormProps) {
       endTimestamp: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days ahead
     });
 
+    toast.loading("Creating listing...", { position: "bottom-right" });
     try {
       const result = await sendTransaction(transaction);
       setTxHash(result.transactionHash as `0x${string}`);
+      toast.dismiss();
+      toast.success("Listing created! Transaction sent.", { position: "bottom-right" });
       console.log("Listing created successfully:", result);
     } catch (err) {
+      toast.dismiss();
+      toast.error("Error creating listing", { position: "bottom-right" });
       console.error("Transaction failed:", err);
     }
   };
 
   if (receipt && !isWaitingForReceipt && isSuccess) {
+    toast.success("Transaction confirmed!", { position: "bottom-right" });
     console.log("Transaction confirmed:", receipt);
     onClose();
   }
