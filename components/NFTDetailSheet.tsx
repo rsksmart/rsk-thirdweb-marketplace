@@ -124,7 +124,12 @@ export function NFTDetailSheet({
     <>
       {showConfetti && (
         <div className="z-[60] overflow-hidden">
-          <Confetti width={2000} height={2000} gravity={0.5} numberOfPieces={500} />
+          <Confetti
+            width={2000}
+            height={2000}
+            gravity={0.5}
+            numberOfPieces={500}
+          />
         </div>
       )}
       <Dialog open={isOpen} onClose={onClose} className="relative z-50">
@@ -264,7 +269,7 @@ export function NFTDetailSheet({
                         {formatDate(
                           listing.startTimeInSeconds
                             ? Number(listing.startTimeInSeconds) * 1000
-                            : undefined
+                            : undefined,
                         )}
                       </p>
                     </div>
@@ -274,7 +279,7 @@ export function NFTDetailSheet({
                         {formatDate(
                           listing.endTimeInSeconds
                             ? Number(listing.endTimeInSeconds) * 1000
-                            : undefined
+                            : undefined,
                         )}
                       </p>
                     </div>

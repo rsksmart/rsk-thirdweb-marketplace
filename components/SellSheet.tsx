@@ -161,7 +161,9 @@ export function SellForm({ onClose }: SellFormProps) {
       const result = await sendTransaction(transaction);
       setTxHash(result.transactionHash as `0x${string}`);
       toast.dismiss();
-      toast.success("Listing created! Transaction sent.", { position: "bottom-right" });
+      toast.success("Listing created! Transaction sent.", {
+        position: "bottom-right",
+      });
       console.log("Listing created successfully:", result);
     } catch (err) {
       toast.dismiss();
