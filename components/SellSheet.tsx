@@ -18,7 +18,11 @@ import {
 import { createListing } from "thirdweb/extensions/marketplace";
 import { marketplaceContract } from "@/app/config";
 import { Address, Hex, getContract, type NFT } from "thirdweb";
-import { getOwnedNFTs } from "thirdweb/extensions/erc721";
+import {
+  getOwnedNFTs,
+  isApprovedForAll,
+  setApprovalForAll,
+} from "thirdweb/extensions/erc721";
 import { defineChain } from "thirdweb/chains";
 import { MediaRenderer } from "thirdweb/react";
 import client from "@/lib/client";
@@ -30,7 +34,7 @@ interface SellFormProps {
   onClose: () => void;
 }
 
-// Add interface for SellSheet props
+
 interface SellSheetProps {
   isOpen: boolean;
   onClose: () => void;
@@ -45,7 +49,7 @@ export function SellForm({ onClose }: SellFormProps) {
   const [isLoadingNFTs, setIsLoadingNFTs] = useState(false);
   const [txHash, setTxHash] = useState<`0x${string}` | null>(null);
 
-  // Debug log
+
   useEffect(() => {
     console.log("SellForm mounted with onClose:", typeof onClose);
   }, [onClose]);
@@ -65,7 +69,7 @@ export function SellForm({ onClose }: SellFormProps) {
     },
   });
 
-  // Move this before the useEffect that depends on it
+
   const nftAddress = watch("nftAddress");
 
   const { data: receipt, isLoading: isWaitingForReceipt } = useWaitForReceipt({
@@ -145,6 +149,29 @@ export function SellForm({ onClose }: SellFormProps) {
 
     const values = getValues();
     const priceInWei = convertRBTCtoWei(values.price);
+
+    try {
+      const result = await isApprovedForAll({
+        contract: nftContract,
+        owner: account.address,
+        operator: marketplaceContract.address,
+      });
+
+      console.log("result", result);
+
+      if (result === false) {
+        const transaction = setApprovalForAll({
+          contract: nftContract,
+          operator: marketplaceContract.address,
+          approved: true,
+        });
+        console.log("approve");
+        const result = await sendTransaction(transaction);
+        console.log("result", result);
+      }
+    } catch (err) {
+      console.error("Error checking approval:", err);
+    }
 
     const transaction = createListing({
       quantity: BigInt(1),
@@ -344,9 +371,7 @@ export function SellForm({ onClose }: SellFormProps) {
 }
 
 export function SellSheet({ isOpen, onClose }: SellSheetProps) {
-  // We don't want to show the trigger button when isOpen is controlled externally
   const showTrigger = false;
-
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
       {showTrigger && (
