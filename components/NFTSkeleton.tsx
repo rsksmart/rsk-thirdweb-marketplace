@@ -1,6 +1,6 @@
 export function NFTSkeleton() {
   return (
-    <div className="bg-gray-800/50 backdrop-blur-md border border-white/10 rounded-xl shadow overflow-hidden animate-pulse hover:shadow-lg hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
+    <div className="bg-gray-800/50 backdrop-blur-md border border-white/10 rounded-xl shadow overflow-hidden animate-pulse duration-[2s] hover:shadow-lg hover:-translate-y-1 transition-all h-full flex flex-col">
       {/* Image Section */}
       <div className="w-full aspect-square bg-gray-700/60"></div>
 
@@ -26,9 +26,11 @@ export function NFTSkeleton() {
 export function NFTGridSkeleton() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {Array(8).fill(0).map((_, index) => (
-        <NFTSkeleton key={`skeleton-${index}`} />
-      ))}
+      {Array(8)
+        .fill(0)
+        .map((_, index) => (
+          <NFTSkeleton key={`skeleton-${index}`} />
+        ))}
     </div>
   );
-} 
+}

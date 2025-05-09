@@ -13,4 +13,4 @@ export function NFTGrid({ listings, client }: NFTGridProps) {
       ))}
     </div>
   );
-} 
+}
