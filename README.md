@@ -1,5 +1,5 @@
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/rsksmart/rootstock-marketplace/badge)](https://scorecard.dev/viewer/?uri=github.com/rsksmart/rootstock-marketplace)
-[![CodeQL](https://github.com/rsksmart/rootstock-marketplace/workflows/CodeQL/badge.svg)](https://github.com/rsksmart/rootstock-marketplace/actions?query=workflow%3ACodeQL)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/rsksmart/rsk-thirdweb-marketplace/badge)](https://scorecard.dev/viewer/?uri=github.com/rsksmart/rsk-thirdweb-marketplace)
+[![CodeQL](https://github.com/rsksmart/rsk-thirdweb-marketplace/workflows/CodeQL/badge.svg)](https://github.com/rsksmart/rsk-thirdweb-marketplace/actions?query=workflow%3ACodeQL)
 
 <img src="rootstock-logo.png" alt="RSK Logo" style="width:100%; height: auto;" />
 
