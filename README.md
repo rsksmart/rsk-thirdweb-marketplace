@@ -1,4 +1,4 @@
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/rsksmart/rsk-thirdweb-marketplace/badge)](https://scorecard.dev/viewer/?uri=github.com/rsksmart/rsk-thirdweb-marketplace)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/rsksmart/rsk-thirdweb-marketplace/badge)](https://scorecard.dev/viewer/?uri=github.com/rsksmart/meme-token-launch)
 [![CodeQL](https://github.com/rsksmart/rskj/workflows/CodeQL/badge.svg)](https://github.com/rsksmart/rsk-thirdweb-marketplace/actions?query=workflow%3ACodeQL)
 
 <img src="rootstock-logo.png" alt="RSK Logo" style="width:100%; height: auto;" />
@@ -13,25 +13,33 @@ NFT marketplace built on Rootstock using thirdweb.
 - Detailed NFT view with listing information
 - Buy and cancel functionality powered by thirdweb's marketplace extensions
 
-
 Built using the [thirdweb Marketplace SDK](https://portal.thirdweb.com/references/typescript/v5/marketplace), which provides a clean API surface for marketplace operations, allowing us to focus on the user experience rather than low-level smart contract calls.
 
-## Development
+## Installation & Development
 
-```bash
-# Install dependencies
-bun install
+1. **Clone and setup**:
+   ```sh
+   git clone https://github.com/rsksmart/rsk-thirdweb-marketplace.git
+   cd rsk-thirdweb-marketplace
+   bun install
+   ```
 
-# Run development server
-bun run dev
-```
+2. **Configure environment**:
+   Rename a `.env.example` file in the root directory using `mv .env.example .env.local` and follow the guide to replace the needed variables.
+
+3. **Start development server**:
+   ```sh
+   bun run dev
+   ```
+
+4. **Access the application**: Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Table of Contents
 
 - [Overview](#overview)
 - [Technologies Used](#technologies-used)
 - [Project Structure](#project-structure)
-- [Installation](#installation)
+- [Installation & Development](#installation--development)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [Support](#support)
@@ -72,37 +80,10 @@ The NFT Marketplace consists of two main processes:
 │   └── SellSheet.tsx
 ```
 
-## Installation
-
-To clone and run this project locally, follow these steps:
-
-1. **Clone the repository**:
-
-   ```sh
-   git clone https://github.com/rsksmart/rsk-thirdweb-marketplace.git
-   cd rsk-thirdweb-marketplace
-   ```
-
-2. **Install dependencies**:
-
-   ```sh
-   pnpm install
-   ```
-
-3. **Configure environment variables**:
-   Create a `.env` file in the root directory and add necessary environment variables. Use as example the file `.env.example` that already exist in the root of the project.
-
-4. **Run the development server**:
-
-   ```sh
-   pnpm run dev
-   ```
-
 ## Usage
 
-1. **Access the application**: Open [http://localhost:3000](http://localhost:3000) in your browser.
-2. **Sell an NFT**: Navigate to the Sell tab, fill out the form, and submit to list an NFT on the marketplace.
-3. **Buy an NFT**: Navigate to the Buy tab, click on the NFT you are interested in, connect your wallet, click on Buy, sign the transaction and enjoy your NFT.
+1. **Sell an NFT**: Navigate to the Sell tab, fill out the form, and submit to list an NFT on the marketplace.
+2. **Buy an NFT**: Click on the NFT you are interested in, connect your wallet, click on Buy, sign the transaction and enjoy your NFT.
 
 ## Contributing
 
