@@ -5,166 +5,85 @@
 
 # Rootstock NFT Marketplace
 
-A professional NFT marketplace built on Rootstock using thirdweb.
+NFT marketplace built on Rootstock using thirdweb.
 
 ## Features
 
-- NFT listing grid with responsive layout
-- Loading skeletons for better UX
-- Detail view for NFTs with listing information
-- Buy and cancel functionality (not fully implemented yet)
+- NFT listing grid with responsive layout and loading skeletons
+- Detailed NFT view with listing information
+- Buy and cancel functionality powered by thirdweb's marketplace extensions
 
-## Implementation Notes
+Built using the [thirdweb Marketplace SDK](https://portal.thirdweb.com/references/typescript/v5/marketplace), which provides a clean API surface for marketplace operations, allowing us to focus on the user experience rather than low-level smart contract calls.
 
-### NFT Detail View
+## Installation & Development
 
-The NFT detail view is implemented using a modal/sheet component that appears when a user clicks on an NFT card. This component displays detailed information about the listing and provides buttons for buying or cancelling the listing.
+1. **Clone and setup**:
+   ```sh
+   git clone https://github.com/rsksmart/rsk-thirdweb-marketplace.git
+   cd rsk-thirdweb-marketplace
+   bun install
+   ```
 
-### Implementing Buy Functionality
+2. **Configure environment**:
+   Rename a `.env.example` file in the root directory using `mv .env.example .env.local` and follow the guide to replace the needed variables.
 
-To implement the buy functionality, update the `handleBuy` function in `components/NFTDetailSheet.tsx`:
+3. **Start development server**:
+   ```sh
+   bun run dev
+   ```
 
-```typescript
-import { buyListing } from "thirdweb/extensions/marketplace";
-
-// Inside NFTDetailSheet component
-const handleBuy = async () => {
-  setIsProcessing(true);
-  try {
-    // Replace with your actual implementation
-    const result = await buyListing({
-      contract: marketplaceContract,
-      listingId: listing.id,
-      buyFor: "YOUR_WALLET_ADDRESS", // or get from wallet connection
-      // Include additional parameters as needed
-    });
-    console.log("Purchase successful:", result);
-    // After successful purchase
-    onClose();
-  } catch (error) {
-    console.error("Error buying NFT:", error);
-    // Handle error appropriately
-  } finally {
-    setIsProcessing(false);
-  }
-};
-```
-
-### Implementing Cancel Functionality
-
-To implement the cancel functionality, update the `handleCancel` function in `components/NFTDetailSheet.tsx`:
-
-```typescript
-import { cancelListing } from "thirdweb/extensions/marketplace";
-
-// Inside NFTDetailSheet component
-const handleCancel = async () => {
-  setIsProcessing(true);
-  try {
-    // Replace with your actual implementation
-    const result = await cancelListing({
-      contract: marketplaceContract,
-      listingId: listing.id,
-      // Include additional parameters as needed
-    });
-    console.log("Cancellation successful:", result);
-    // After successful cancellation
-    onClose();
-  } catch (error) {
-    console.error("Error cancelling listing:", error);
-    // Handle error appropriately
-  } finally {
-    setIsProcessing(false);
-  }
-};
-```
-
-## Development
-
-```bash
-# Install dependencies
-npm install
-
-# Run development server
-npm run dev
-```
+4. **Access the application**: Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Table of Contents
 
 - [Overview](#overview)
 - [Technologies Used](#technologies-used)
 - [Project Structure](#project-structure)
-- [Installation](#installation)
+- [Installation & Development](#installation--development)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [Support](#support)
 
 ## Overview
 
-The Runes Marketplace consists of two main processes:
+The NFT Marketplace consists of two main processes:
 
-1. **Buy a Rune**: Users can buy Runes connecting their wallets. Once the users sign the buy transaction and pay for the Rune and gas costs, they own the Rune.
-2. **Sell a Rune**: Users can list their Runes and establish the price they want for them individually. To list a Rune, they must specified the address of the ERC1155 Rune representation on the Rootstock (RSK) network, the token ID and the price.
+1. **Buy an NFT**: Users can buy NFTs connecting their wallets. Once the users sign the buy transaction and pay for the NFT and gas costs, they own the NFT.
+2. **Sell an NFT**: Users can list their NFTs and establish the price they want for them individually. To list an NFT, they must specified the address of the ERC1155 NFT representation on the Rootstock (RSK) network, the token ID and the price.
 
 ## Technologies Used
 
 - **Thirdweb Marketplace V3**: [Thirdweb Documentation](https://thirdweb.com/thirdweb.eth/MarketplaceV3)
 - **Thirdweb TS SDK**: [Thirdweb Github](https://github.com/thirdweb-dev/js/tree/main#readme)
-- **Tailwindcss**: [Tailwindcss Documentation](https://tailwindcss.com/docs/installation)
+
 
 ## Project Structure
 
 ```
-├── app
-│   ├── assets
-│   ├── pages
-│   └── utils
-│       └── abi
-├── components
-│   ├── tabs
-│   │   ├── BuyTab.tsx
-│   │   ├── index.tsx
-│   │   └── SellTab.tsx
-│   └── ui
-├── constants
-├── functions
-│   └── mock_index.ts
-├── lib
-│   └── utils.ts
-├── package.json
+├── app/
+│   ├── assets/
+│   ├── utils/
+│   ├── config.ts
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── footer/
+│   ├── icons/
+│   ├── navbar/
+│   ├── ui/
+│   ├── NFTDetailSheet.tsx
+│   ├── NFTCard.tsx
+│   ├── NFTGrid.tsx
+│   ├── NFTSkeleton.tsx
+│   └── SellSheet.tsx
 ```
-
-## Installation
-
-To clone and run this project locally, follow these steps:
-
-1. **Clone the repository**:
-
-   ```sh
-   git clone https://github.com/rsksmart/rsk-runes-marketplace.git
-   cd rsk-runes-marketplace
-   ```
-
-2. **Install dependencies**:
-
-   ```sh
-   npm install
-   ```
-
-3. **Configure environment variables**:
-   Create a `.env` file in the root directory and add necessary environment variables. Use as example the file `.env.example` that already exist in the root of the project.
-
-4. **Run the development server**:
-
-   ```sh
-   npm run dev
-   ```
 
 ## Usage
 
-1. **Access the application**: Open [http://localhost:3000](http://localhost:3000) in your browser.
-2. **Sell a Rune**: Navigate to the Sell tab, fill out the form, and submit to list a Rune on the marketplace.
-3. **Buy a Rune**: Navigate to the Buy tab, click on the Rune you are interested in, connect your wallet, click on Buy, sign the transacction and enjoy your Rune.
+1. **Sell an NFT**: Navigate to the Sell tab, fill out the form, and submit to list an NFT on the marketplace.
+2. **Buy an NFT**: Click on the NFT you are interested in, connect your wallet, click on Buy, sign the transaction and enjoy your NFT.
 
 ## Contributing
 
