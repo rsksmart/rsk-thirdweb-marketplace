@@ -5,7 +5,7 @@ import {
 } from "thirdweb";
 import { installPublishedExtension } from "thirdweb/extensions/dynamic-contracts";
 import { privateKeyToAccount } from "thirdweb/wallets";
-import client from "./lib/client";
+import { createThirdwebClient } from "thirdweb";
 
 
 const privateKey = process.env.PRIVATE_KEY;
@@ -14,6 +14,11 @@ const marketplaceAddress = process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT;
 if (!privateKey || !marketplaceAddress) {
   throw new Error("Check your .env");
 }
+
+const client = createThirdwebClient({
+ secretKey: process.env.THIRDWEB_SECRET_KEY || '',
+});
+
 
 const account = privateKeyToAccount({
   client,
