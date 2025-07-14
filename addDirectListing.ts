@@ -16,7 +16,7 @@ if (!privateKey || !marketplaceAddress) {
 }
 
 const client = createThirdwebClient({
- secretKey: '',
+ secretKey: process.env.THIRDWEB_SECRET_KEY || '',
 });
 
 
