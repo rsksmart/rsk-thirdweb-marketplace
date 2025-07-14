@@ -24,12 +24,12 @@ import {
   isApprovedForAll,
   setApprovalForAll,
 } from "thirdweb/extensions/erc721";
-import { defineChain } from "thirdweb/chains";
 import { MediaRenderer } from "thirdweb/react";
 import client from "@/lib/client";
 import { ListingFormData } from "@/types/marketplace";
 import { convertRBTCtoWei } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { rootstockTestnet } from "@/app/utils/contracts";
 
 interface SellFormProps {
   onClose: () => void;
@@ -78,7 +78,7 @@ export function SellForm({ onClose }: SellFormProps) {
 
   const { data: receipt, isLoading: isWaitingForReceipt } = useWaitForReceipt({
     client,
-    chain: defineChain(31),
+    chain: rootstockTestnet,
     transactionHash: txHash as `0x${string}`,
   });
 
@@ -101,7 +101,7 @@ export function SellForm({ onClose }: SellFormProps) {
     try {
       const contract = getContract({
         client: client,
-        chain: defineChain(31),
+        chain: rootstockTestnet,
         address: nftAddress as Address,
       });
       setNftContract(contract);
@@ -249,7 +249,7 @@ export function SellForm({ onClose }: SellFormProps) {
                 message: "Invalid Ethereum address",
               },
               setValueAs: (value) => {
-                if (chain === 31 && typeof value === 'string') {
+                if (chain === rootstockTestnet.id && typeof value === 'string') {
                   return value.toLowerCase();
                 }
                 return value;
