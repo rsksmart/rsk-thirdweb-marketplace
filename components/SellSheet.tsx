@@ -7,13 +7,14 @@ import {
 } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import {
   useActiveAccount,
   useSendTransaction,
   useWaitForReceipt,
+  useActiveWalletChain
 } from "thirdweb/react";
 import { createListing } from "thirdweb/extensions/marketplace";
 import { marketplaceContract } from "@/app/config";
@@ -23,12 +24,12 @@ import {
   isApprovedForAll,
   setApprovalForAll,
 } from "thirdweb/extensions/erc721";
-import { defineChain } from "thirdweb/chains";
 import { MediaRenderer } from "thirdweb/react";
 import client from "@/lib/client";
 import { ListingFormData } from "@/types/marketplace";
 import { convertRBTCtoWei } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { rootstockTestnet } from "@/app/utils/contracts";
 
 interface SellFormProps {
   onClose: () => void;
@@ -42,12 +43,15 @@ interface SellSheetProps {
 
 export function SellForm({ onClose }: SellFormProps) {
   const account = useActiveAccount();
+  const chain = useActiveWalletChain()?.id;
   const [ownedNFTs, setOwnedNFTs] = useState<NFT[] | null>(null);
   const [nftContract, setNftContract] = useState<any>(null);
   const [selectedNFT, setSelectedNFT] = useState<NFT | null>(null);
   const [isValidContract, setIsValidContract] = useState(false);
   const [isLoadingNFTs, setIsLoadingNFTs] = useState(false);
   const [txHash, setTxHash] = useState<`0x${string}` | null>(null);
+  const confirmationHandled = useRef(false);
+
 
 
   useEffect(() => {
@@ -74,7 +78,7 @@ export function SellForm({ onClose }: SellFormProps) {
 
   const { data: receipt, isLoading: isWaitingForReceipt } = useWaitForReceipt({
     client,
-    chain: defineChain(31),
+    chain: rootstockTestnet,
     transactionHash: txHash as `0x${string}`,
   });
 
@@ -97,7 +101,7 @@ export function SellForm({ onClose }: SellFormProps) {
     try {
       const contract = getContract({
         client: client,
-        chain: defineChain(31),
+        chain: rootstockTestnet,
         address: nftAddress as Address,
       });
       setNftContract(contract);
@@ -187,6 +191,7 @@ export function SellForm({ onClose }: SellFormProps) {
     try {
       const result = await sendTransaction(transaction);
       setTxHash(result.transactionHash as `0x${string}`);
+      confirmationHandled.current = false; // Reset for this new transaction
       toast.dismiss();
       toast.success("Listing created! Transaction sent.", {
         position: "bottom-right",
@@ -199,11 +204,14 @@ export function SellForm({ onClose }: SellFormProps) {
     }
   };
 
-  if (receipt && !isWaitingForReceipt && isSuccess) {
-    toast.success("Transaction confirmed!", { position: "bottom-right" });
-    console.log("Transaction confirmed:", receipt);
-    onClose();
-  }
+  useEffect(() => {
+    if (receipt && !isWaitingForReceipt && isSuccess && !confirmationHandled.current) {
+      confirmationHandled.current = true;
+      toast.success("Transaction confirmed!", { position: "bottom-right" });
+      console.log("Transaction confirmed:", receipt);
+      onClose();
+    }
+  }, [receipt, isWaitingForReceipt, isSuccess, onClose]);
 
   return (
     <>
@@ -239,6 +247,12 @@ export function SellForm({ onClose }: SellFormProps) {
               pattern: {
                 value: /^0x[a-fA-F0-9]{40}$/,
                 message: "Invalid Ethereum address",
+              },
+              setValueAs: (value) => {
+                if (chain === rootstockTestnet.id && typeof value === 'string') {
+                  return value.toLowerCase();
+                }
+                return value;
               },
             })}
           />
