@@ -27,6 +27,9 @@ Built using the [thirdweb Marketplace SDK](https://portal.thirdweb.com/reference
 2. **Configure environment**:
    Rename a `.env.example` file in the root directory using `mv .env.example .env.local` and follow the guide to replace the needed variables.
 
+   > **⚠️ IMPORTANT**: When using Rootstock Testnet, ensure that `NEXT_PUBLIC_MARKETPLACE_CONTRACT` is in lowercase format. Rootstock testnet addresses are not checksummed, so the contract address must be lowercase to work properly.
+
+
 3. **Start development server**:
    ```sh
    bun run dev
