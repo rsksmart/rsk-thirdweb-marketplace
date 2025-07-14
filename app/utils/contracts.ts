@@ -15,6 +15,6 @@ export const rootstockTestnet = defineChain({
 
 export const marketplaceContract = getContract({
   client,
-  address: "0xe89161615fCc987aFd21cF73FB397c57831bbD5b",
+  address: process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT!,
   chain: defineChain(31),
 });
